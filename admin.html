@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LAHM Admin Panel — Booking Management</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --bg: #0e0907;
+    --bg-soft: #1a1310;
+    --bg-card: #1f1612;
+    --cream: #f4ecd8;
+    --cream-soft: #d9cfb8;
+    --gold: #c9a449;
+    --gold-bright: #e6c068;
+    --red: #8b1a1a;
+    --green: #06d6a0;
+    --orange: #f4a261;
+    --blue: #118ab2;
+    --text: #ece6d4;
+    --muted: #9a8f7a;
+    --border: rgba(201, 164, 73, 0.18);
+    --display: 'Cormorant Garamond', serif;
+    --body: 'Inter', sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: var(--body); background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.5; }
+
+  .login-screen { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; background: radial-gradient(ellipse at top, rgba(139, 26, 26, 0.2), transparent 60%), linear-gradient(180deg, #0e0907 0%, #1a0e0a 100%); }
+  .login-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 50px 40px; width: 100%; max-width: 420px; text-align: center; box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6); }
+  .login-logo { font-family: var(--display); font-size: 2.5rem; font-weight: 700; letter-spacing: 8px; color: var(--gold); margin-bottom: 8px; }
+  .login-subtitle { color: var(--muted); font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 40px; }
+  .login-form input { width: 100%; padding: 16px 18px; background: var(--bg-soft); border: 1px solid var(--border); color: var(--text); font-size: 1rem; font-family: var(--body); border-radius: 4px; margin-bottom: 16px; transition: border-color 0.2s ease; }
+  .login-form input:focus { outline: none; border-color: var(--gold); }
+  .login-btn { width: 100%; padding: 16px; background: linear-gradient(90deg, var(--gold), var(--gold-bright)); color: var(--bg); border: none; font-size: 1rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; border-radius: 4px; transition: all 0.2s ease; }
+  .login-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(201, 164, 73, 0.3); }
+  .login-error { color: #ef476f; margin-top: 16px; font-size: 0.9rem; display: none; }
+  .login-hint { margin-top: 30px; color: var(--muted); font-size: 0.8rem; }
+
+  .dashboard { display: none; min-height: 100vh; }
+  .topbar { background: var(--bg-soft); border-bottom: 1px solid var(--border); padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 50; }
+  .topbar-left { display: flex; align-items: center; gap: 16px; }
+  .logo { font-family: var(--display); font-size: 1.4rem; font-weight: 700; letter-spacing: 6px; color: var(--gold); }
+  .badge { background: var(--red); color: var(--cream); padding: 3px 10px; border-radius: 50px; font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase; }
+  .topbar-right { display: flex; gap: 10px; }
+  .icon-btn { background: transparent; border: 1px solid var(--border); color: var(--cream-soft); padding: 8px 14px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; transition: all 0.2s ease; font-family: var(--body); }
+  .icon-btn:hover { border-color: var(--gold); color: var(--gold); }
+  .icon-btn.danger:hover { border-color: #ef476f; color: #ef476f; }
+
+  .container { max-width: 1400px; margin: 0 auto; padding: 30px 24px; }
+  .page-title { font-family: var(--display); font-size: 2.2rem; color: var(--cream); margin-bottom: 6px; font-weight: 600; }
+  .page-subtitle { color: var(--muted); font-size: 0.95rem; margin-bottom: 30px; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 30px; }
+  .stat-card { background: var(--bg-card); border: 1px solid var(--border); padding: 20px; border-radius: 8px; position: relative; overflow: hidden; }
+  .stat-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--gold); }
+  .stat-card.pending::before { background: var(--orange); }
+  .stat-card.confirmed::before { background: var(--blue); }
+  .stat-card.delivered::before { background: var(--green); }
+  .stat-label { color: var(--muted); font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .stat-num { font-family: var(--display); font-size: 2.4rem; color: var(--cream); font-weight: 600; line-height: 1; }
+
+  .controls { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+  .search-box { flex: 1; min-width: 200px; position: relative; }
+  .search-box input { width: 100%; padding: 12px 16px 12px 42px; background: var(--bg-card); border: 1px solid var(--border); color: var(--text); border-radius: 4px; font-family: var(--body); font-size: 0.95rem; }
+  .search-box input:focus { outline: none; border-color: var(--gold); }
+  .search-box svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; stroke: var(--muted); }
+  .filter-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+  .filter-tab { background: var(--bg-card); border: 1px solid var(--border); color: var(--cream-soft); padding: 10px 18px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 500; transition: all 0.2s ease; font-family: var(--body); }
+  .filter-tab:hover { border-color: var(--gold); }
+  .filter-tab.active { background: var(--gold); color: var(--bg); border-color: var(--gold); font-weight: 600; }
+
+  .bookings-list { display: grid; gap: 12px; }
+  .booking-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 20px; transition: all 0.2s ease; }
+  .booking-card:hover { border-color: var(--gold); transform: translateX(4px); }
+  .booking-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
+  .booking-id { font-family: 'Courier New', monospace; font-size: 0.75rem; color: var(--muted); letter-spacing: 1px; }
+  .booking-name { font-family: var(--display); font-size: 1.4rem; color: var(--cream); font-weight: 600; margin-top: 4px; }
+  .status-pill { padding: 5px 14px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+  .status-pill.pending { background: rgba(244, 162, 97, 0.15); color: var(--orange); border: 1px solid var(--orange); }
+  .status-pill.confirmed { background: rgba(17, 138, 178, 0.15); color: var(--blue); border: 1px solid var(--blue); }
+  .status-pill.delivered { background: rgba(6, 214, 160, 0.15); color: var(--green); border: 1px solid var(--green); }
+  .booking-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-bottom: 16px; padding-top: 14px; border-top: 1px solid var(--border); }
+  .info-item { font-size: 0.85rem; }
+  .info-item .lbl { color: var(--muted); font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+  .info-item .val { color: var(--text); word-break: break-word; }
+  .info-item .val.gold { color: var(--gold); font-weight: 600; }
+
+  .actions { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 14px; border-top: 1px solid var(--border); }
+  .action-btn { padding: 8px 14px; border-radius: 4px; border: 1px solid var(--border); background: var(--bg-soft); color: var(--cream-soft); cursor: pointer; font-size: 0.8rem; font-weight: 500; transition: all 0.2s ease; font-family: var(--body); display: inline-flex; align-items: center; gap: 6px; text-decoration: none; }
+  .action-btn:hover { background: var(--bg); color: var(--cream); }
+  .action-btn.whatsapp { background: #25d366; color: white; border-color: #25d366; }
+  .action-btn.whatsapp:hover { background: #1da851; color: white; }
+  .action-btn.confirm:hover { border-color: var(--blue); color: var(--blue); }
+  .action-btn.deliver:hover { border-color: var(--green); color: var(--green); }
+  .action-btn.delete:hover { border-color: #ef476f; color: #ef476f; }
+
+  .empty-state { text-align: center; padding: 80px 20px; color: var(--muted); }
+  .empty-state .emoji { font-size: 4rem; margin-bottom: 16px; }
+  .empty-state h3 { font-family: var(--display); font-size: 1.8rem; color: var(--cream); margin-bottom: 8px; }
+  .loading { text-align: center; padding: 60px; color: var(--muted); }
+  .spinner { display: inline-block; width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--gold); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 16px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--bg-card); border: 1px solid var(--gold); color: var(--cream); padding: 14px 24px; border-radius: 6px; font-size: 0.9rem; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); transition: transform 0.3s ease; z-index: 1000; }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+  .toast.success { border-color: var(--green); }
+  .toast.error { border-color: #ef476f; }
+
+  @media (max-width: 600px) {
+    .topbar { padding: 12px 16px; }
+    .logo { font-size: 1.1rem; letter-spacing: 4px; }
+    .container { padding: 20px 16px; }
+    .page-title { font-size: 1.6rem; }
+    .booking-card { padding: 16px; }
+    .booking-name { font-size: 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="login-screen" id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">LAHM</div>
+    <div class="login-subtitle">Admin Panel</div>
+    <form class="login-form" id="loginForm">
+      <input type="password" id="passwordInput" placeholder="Enter Password" autofocus />
+      <button type="submit" class="login-btn">Login</button>
+      <div class="login-error" id="loginError">❌ Galat password! Try again.</div>
+    </form>
+    <p class="login-hint">
+      Authorized access only<br>
+      Owner: Shafy Rauf
+    </p>
+  </div>
+</div>
+
+<div class="dashboard" id="dashboard">
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="logo">LAHM</div>
+      <span class="badge">Admin</span>
+    </div>
+    <div class="topbar-right">
+      <button class="icon-btn" id="exportBtn">📥 Export CSV</button>
+      <button class="icon-btn danger" id="logoutBtn">Logout</button>
+    </div>
+  </div>
+  <div class="container">
+    <h1 class="page-title">Bookings Dashboard</h1>
+    <p class="page-subtitle">Saari customer bookings ek jagah — manage, update, aur track karein</p>
+    <div class="stats">
+      <div class="stat-card"><div class="stat-label">Total Bookings</div><div class="stat-num" id="statTotal">0</div></div>
+      <div class="stat-card pending"><div class="stat-label">Pending</div><div class="stat-num" id="statPending">0</div></div>
+      <div class="stat-card confirmed"><div class="stat-label">Confirmed</div><div class="stat-num" id="statConfirmed">0</div></div>
+      <div class="stat-card delivered"><div class="stat-label">Delivered</div><div class="stat-num" id="statDelivered">0</div></div>
+    </div>
+    <div class="controls">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchInput" placeholder="Search by name or phone..." />
+      </div>
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="Pending">Pending</button>
+        <button class="filter-tab" data-filter="Confirmed">Confirmed</button>
+        <button class="filter-tab" data-filter="Delivered">Delivered</button>
+      </div>
+    </div>
+    <div id="bookingsContainer">
+      <div class="loading"><div class="spinner"></div><p>Bookings load ho rahi hain...</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Firebase Compat SDK (works from file:// protocol) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script>
+  // ⚠️ IMPORTANT: Apna password yahan change karein!
+  var ADMIN_PASSWORD = "lahm2026";
+
+  var firebaseConfig = {
+    apiKey: "AIzaSyA0TlS5hLOTtk1Pz1rl3ziSflATczFXOZo",
+    authDomain: "lahm-qurbani.firebaseapp.com",
+    projectId: "lahm-qurbani",
+    storageBucket: "lahm-qurbani.firebasestorage.app",
+    messagingSenderId: "795880237028",
+    appId: "1:795880237028:web:31e8a5078141def262c9f1"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  var db = firebase.firestore();
+
+  var allBookings = [];
+  var currentFilter = 'all';
+  var currentSearch = '';
+
+  var loginScreen = document.getElementById('loginScreen');
+  var dashboard = document.getElementById('dashboard');
+  var loginForm = document.getElementById('loginForm');
+  var passwordInput = document.getElementById('passwordInput');
+  var loginError = document.getElementById('loginError');
+
+  try {
+    if (sessionStorage.getItem('lahmAdminAuth') === 'true') {
+      showDashboard();
+    }
+  } catch (e) {}
+
+  loginForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (passwordInput.value === ADMIN_PASSWORD) {
+      try { sessionStorage.setItem('lahmAdminAuth', 'true'); } catch (e) {}
+      showDashboard();
+    } else {
+      loginError.style.display = 'block';
+      passwordInput.value = '';
+      passwordInput.focus();
+      setTimeout(function() { loginError.style.display = 'none'; }, 3000);
+    }
+  });
+
+  function showDashboard() {
+    loginScreen.style.display = 'none';
+    dashboard.style.display = 'block';
+    loadBookings();
+  }
+
+  document.getElementById('logoutBtn').addEventListener('click', function() {
+    if (confirm('Logout karna chahte ho?')) {
+      try { sessionStorage.removeItem('lahmAdminAuth'); } catch(e) {}
+      location.reload();
+    }
+  });
+
+  document.getElementById('exportBtn').addEventListener('click', exportToCSV);
+
+  function loadBookings() {
+    db.collection('bookings').orderBy('createdAt', 'desc').onSnapshot(function(snapshot) {
+      allBookings = [];
+      snapshot.forEach(function(docSnap) {
+        var data = docSnap.data();
+        data.id = docSnap.id;
+        allBookings.push(data);
+      });
+      updateStats();
+      renderBookings();
+    }, function(error) {
+      console.error('Load error:', error);
+      document.getElementById('bookingsContainer').innerHTML =
+        '<div class="empty-state"><div class="emoji">⚠️</div>' +
+        '<h3>Load Nahi Ho Saki</h3><p>Internet check karein</p></div>';
+    });
+  }
+
+  function updateStats() {
+    document.getElementById('statTotal').textContent = allBookings.length;
+    document.getElementById('statPending').textContent = allBookings.filter(function(b){return b.status === 'Pending';}).length;
+    document.getElementById('statConfirmed').textContent = allBookings.filter(function(b){return b.status === 'Confirmed';}).length;
+    document.getElementById('statDelivered').textContent = allBookings.filter(function(b){return b.status === 'Delivered';}).length;
+  }
+
+  function renderBookings() {
+    var filtered = allBookings;
+    if (currentFilter !== 'all') filtered = filtered.filter(function(b){return b.status === currentFilter;});
+    if (currentSearch) {
+      var s = currentSearch.toLowerCase();
+      filtered = filtered.filter(function(b){
+        return (b.name || '').toLowerCase().indexOf(s) > -1 || (b.phone || '').toLowerCase().indexOf(s) > -1;
+      });
+    }
+    var container = document.getElementById('bookingsContainer');
+    if (filtered.length === 0) {
+      var msg = allBookings.length === 0 ? 'Abhi tak koi booking nahi' : 'Koi result nahi mila';
+      var sub = allBookings.length === 0 ? 'Customers booking karenge to yahan dikhayi degi' : 'Filter ya search change karein';
+      container.innerHTML = '<div class="empty-state"><div class="emoji">📋</div><h3>' + msg + '</h3><p>' + sub + '</p></div>';
+      return;
+    }
+    container.innerHTML = '<div class="bookings-list">' + filtered.map(renderBookingCard).join('') + '</div>';
+  }
+
+  function renderBookingCard(b) {
+    var statusClass = (b.status || 'Pending').toLowerCase();
+    var dateStr = 'Just now';
+    if (b.createdAt && b.createdAt.toDate) {
+      dateStr = b.createdAt.toDate().toLocaleDateString('en-PK', { day:'numeric', month:'short', year:'numeric', hour:'numeric', minute:'2-digit' });
+    }
+    var phoneClean = (b.phone || '').replace(/[^\d]/g, '');
+    var waLink = 'https://wa.me/92' + phoneClean;
+    if (phoneClean.indexOf('92') === 0) waLink = 'https://wa.me/' + phoneClean;
+    else if (phoneClean.indexOf('0') === 0) waLink = 'https://wa.me/92' + phoneClean.substring(1);
+    var waMsg = encodeURIComponent('Assalamualaikum ' + (b.name || '') + ', Lahm Qurbani se rabta hai.');
+
+    var actions = '<a href="' + waLink + '?text=' + waMsg + '" target="_blank" class="action-btn whatsapp">💬 WhatsApp</a>';
+    if (b.status !== 'Confirmed') actions += '<button class="action-btn confirm" onclick="updateStatus(\'' + b.id + '\', \'Confirmed\')">✓ Mark Confirmed</button>';
+    if (b.status !== 'Delivered') actions += '<button class="action-btn deliver" onclick="updateStatus(\'' + b.id + '\', \'Delivered\')">📦 Mark Delivered</button>';
+    if (b.status !== 'Pending') actions += '<button class="action-btn" onclick="updateStatus(\'' + b.id + '\', \'Pending\')">↶ Pending</button>';
+    actions += '<button class="action-btn delete" onclick="deleteBooking(\'' + b.id + '\', \'' + (b.name||'').replace(/'/g,"\\'") + '\')">🗑 Delete</button>';
+
+    var instructionsHTML = '';
+    if (b.instructions && b.instructions !== 'None' && b.instructions.trim()) {
+      instructionsHTML = '<div class="info-item" style="grid-column: 1 / -1;"><div class="lbl">Special Instructions</div><div class="val">' + escapeHTML(b.instructions) + '</div></div>';
+    }
+
+    return '<div class="booking-card">' +
+      '<div class="booking-header"><div>' +
+      '<div class="booking-id">#' + b.id.substring(0,8).toUpperCase() + ' · ' + dateStr + '</div>' +
+      '<div class="booking-name">' + escapeHTML(b.name || 'Unknown') + '</div></div>' +
+      '<span class="status-pill ' + statusClass + '">' + (b.status || 'Pending') + '</span></div>' +
+      '<div class="booking-grid">' +
+      '<div class="info-item"><div class="lbl">Phone</div><div class="val">' + escapeHTML(b.phone || '-') + '</div></div>' +
+      '<div class="info-item"><div class="lbl">Hissa Type</div><div class="val gold">' + escapeHTML(b.hissaType || '-') + '</div></div>' +
+      '<div class="info-item"><div class="lbl">Quantity</div><div class="val">' + (b.quantity || 1) + ' hissa(s)</div></div>' +
+      '<div class="info-item"><div class="lbl">Address</div><div class="val">' + escapeHTML(b.address || '-') + '</div></div>' +
+      instructionsHTML +
+      '</div><div class="actions">' + actions + '</div></div>';
+  }
+
+  function escapeHTML(str) {
+    return String(str).replace(/[&<>"']/g, function(c) {
+      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];
+    });
+  }
+
+  window.updateStatus = function(id, newStatus) {
+    db.collection('bookings').doc(id).update({status: newStatus})
+      .then(function(){ showToast('Status: ' + newStatus, 'success'); })
+      .catch(function(e){ console.error(e); showToast('Error', 'error'); });
+  };
+
+  window.deleteBooking = function(id, name) {
+    if (!confirm('Booking delete karni hai?\n\nCustomer: ' + name)) return;
+    db.collection('bookings').doc(id).delete()
+      .then(function(){ showToast('Delete ho gayi', 'success'); })
+      .catch(function(e){ console.error(e); showToast('Error', 'error'); });
+  };
+
+  function exportToCSV() {
+    if (allBookings.length === 0) { showToast('Koi bookings nahi', 'error'); return; }
+    var headers = ['ID','Date','Name','Phone','Type','Qty','Address','Instructions','Status'];
+    var rows = allBookings.map(function(b) {
+      var date = (b.createdAt && b.createdAt.toDate) ? b.createdAt.toDate().toLocaleString('en-PK') : '';
+      return [b.id.substring(0,8).toUpperCase(), date, b.name||'', b.phone||'', b.hissaType||'', b.quantity||1, b.address||'', b.instructions||'', b.status||'Pending']
+        .map(function(v){return '"' + String(v).replace(/"/g,'""') + '"';}).join(',');
+    });
+    var csv = [headers.join(',')].concat(rows).join('\n');
+    var blob = new Blob(['\ufeff' + csv], {type:'text/csv;charset=utf-8'});
+    var url = URL.createObjectURL(blob);
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = 'lahm-bookings-' + new Date().toISOString().split('T')[0] + '.csv';
+    link.click();
+    URL.revokeObjectURL(url);
+    showToast(allBookings.length + ' bookings exported!', 'success');
+  }
+
+  function showToast(message, type) {
+    var toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.className = 'toast show ' + (type || '');
+    setTimeout(function(){ toast.className = 'toast ' + (type || ''); }, 3000);
+  }
+
+  document.getElementById('searchInput').addEventListener('input', function(e) {
+    currentSearch = e.target.value;
+    renderBookings();
+  });
+
+  document.querySelectorAll('.filter-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.filter-tab').forEach(function(t){ t.classList.remove('active'); });
+      tab.classList.add('active');
+      currentFilter = tab.dataset.filter;
+      renderBookings();
+    });
+  });
+</script>
+
+</body>
+</html>

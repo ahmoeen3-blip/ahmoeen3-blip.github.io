@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LAHM — Ijtamai Qurbani | Lahore | Eid-ul-Adha</title>
+<meta name="description" content="LAHM — Lahore mein Ijtamai Qurbani service. Eid-ul-Adha pe shariah ke mutabiq qurbani, fresh meat home delivery. Sher Shah Colony, Raiwind Road." />
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Amiri:wght@400;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --bg: #0e0907;
+    --bg-soft: #1a1310;
+    --bg-card: #1f1612;
+    --cream: #f4ecd8;
+    --cream-soft: #d9cfb8;
+    --gold: #c9a449;
+    --gold-bright: #e6c068;
+    --red: #8b1a1a;
+    --red-deep: #5a1010;
+    --text: #ece6d4;
+    --muted: #9a8f7a;
+    --border: rgba(201, 164, 73, 0.18);
+    --display: 'Cormorant Garamond', serif;
+    --body: 'Inter', sans-serif;
+    --arabic: 'Amiri', serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--body);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Subtle grain texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    opacity: 0.04;
+    z-index: 1000;
+    mix-blend-mode: overlay;
+  }
+
+  /* ==================== NAV ==================== */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(14, 9, 7, 0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: var(--display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 8px;
+    color: var(--gold);
+  }
+  .logo span {
+    font-family: var(--arabic);
+    font-size: 1.4rem;
+    color: var(--cream);
+    margin-left: 8px;
+    letter-spacing: 0;
+  }
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--cream-soft);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-cta {
+    background: var(--red);
+    color: var(--cream);
+    padding: 10px 22px;
+    border-radius: 2px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border: 1px solid var(--red-deep);
+    transition: all 0.3s ease;
+  }
+  .nav-cta:hover { background: var(--gold); color: var(--bg); border-color: var(--gold); }
+
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    .logo { font-size: 1.3rem; letter-spacing: 5px; }
+  }
+
+  /* ==================== HERO ==================== */
+  .hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 120px 40px 60px;
+    background:
+      radial-gradient(ellipse at 70% 30%, rgba(139, 26, 26, 0.25), transparent 60%),
+      linear-gradient(180deg, #0e0907 0%, #1a0e0a 100%);
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: 'حلال';
+    position: absolute;
+    right: -50px;
+    bottom: -80px;
+    font-family: var(--arabic);
+    font-size: 22rem;
+    color: var(--gold);
+    opacity: 0.04;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    color: var(--gold);
+    font-size: 0.75rem;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--gold);
+    animation: fadeUp 0.8s 0.2s both;
+  }
+
+  .hero h1 {
+    font-family: var(--display);
+    font-size: clamp(3rem, 8vw, 6.5rem);
+    line-height: 0.95;
+    color: var(--cream);
+    font-weight: 500;
+    margin-bottom: 28px;
+    animation: fadeUp 0.8s 0.4s both;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 400;
+  }
+
+  .hero p {
+    font-size: 1.05rem;
+    color: var(--cream-soft);
+    max-width: 480px;
+    margin-bottom: 36px;
+    animation: fadeUp 0.8s 0.6s both;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.8s both;
+  }
+
+  .btn {
+    padding: 16px 32px;
+    border-radius: 2px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    border: none;
+    font-family: var(--body);
+    font-weight: 500;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--bg);
+  }
+  .btn-primary:hover { background: var(--gold-bright); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(201, 164, 73, 0.3); }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--cream);
+    border: 1px solid var(--cream-soft);
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+  .hero-visual {
+    position: relative;
+    height: 500px;
+    animation: fadeUp 1s 1s both;
+  }
+
+  .hero-visual svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-stats {
+    position: absolute;
+    bottom: 40px;
+    left: 40px;
+    right: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 60px;
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+    animation: fadeUp 0.8s 1.2s both;
+  }
+  .hero-stats div { flex: 1; }
+  .hero-stats .num {
+    font-family: var(--display);
+    font-size: 2rem;
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .hero-stats .lbl {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 968px) {
+    .hero-content { grid-template-columns: 1fr; gap: 40px; }
+    .hero-visual { height: 320px; }
+    .hero-stats { position: relative; left: 0; right: 0; bottom: 0; padding: 24px 0 0; flex-wrap: wrap; gap: 30px; margin-top: 40px; }
+    .hero-stats div { min-width: 40%; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ==================== SECTION COMMON ==================== */
+  section { padding: 100px 40px; position: relative; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .section-tag {
+    display: inline-block;
+    color: var(--gold);
+    font-size: 0.75rem;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .section-title {
+    font-family: var(--display);
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    color: var(--cream);
+    line-height: 1;
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+  .section-subtitle {
+    color: var(--cream-soft);
+    max-width: 600px;
+    margin-bottom: 60px;
+  }
+
+  /* ==================== ABOUT ==================== */
+  .about {
+    background: var(--bg-soft);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .about-features {
+    display: grid;
+    gap: 28px;
+    margin-top: 40px;
+  }
+  .feature {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .feature-icon {
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+  }
+  .feature-icon svg { width: 24px; height: 24px; stroke: var(--gold); }
+  .feature h4 {
+    font-family: var(--display);
+    font-size: 1.4rem;
+    color: var(--cream);
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .feature p { color: var(--muted); font-size: 0.95rem; }
+
+  .about-visual {
+    position: relative;
+    aspect-ratio: 1;
+    border: 1px solid var(--border);
+    background:
+      radial-gradient(circle at center, rgba(139, 26, 26, 0.4), transparent 70%),
+      var(--bg-card);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .about-visual::before {
+    content: '';
+    position: absolute;
+    inset: 20px;
+    border: 1px dashed var(--gold);
+    opacity: 0.3;
+  }
+  .seal {
+    text-align: center;
+  }
+  .seal-arabic {
+    font-family: var(--arabic);
+    font-size: 5rem;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+  .seal-text {
+    font-family: var(--display);
+    font-size: 1.6rem;
+    color: var(--cream);
+    letter-spacing: 4px;
+    margin-bottom: 8px;
+  }
+  .seal-sub {
+    font-size: 0.75rem;
+    color: var(--gold);
+    letter-spacing: 4px;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 768px) {
+    .about-grid { grid-template-columns: 1fr; gap: 50px; }
+  }
+
+  /* ==================== PRODUCTS ==================== */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 380px));
+    gap: 30px;
+    margin-top: 50px;
+    justify-content: center;
+  }
+  .product {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 32px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .product::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--red), var(--gold));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .product:hover {
+    transform: translateY(-6px);
+    border-color: var(--gold);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  }
+  .product:hover::before { transform: scaleX(1); }
+
+  .product-icon {
+    width: 70px;
+    height: 70px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    font-size: 2rem;
+  }
+
+  .product h3 {
+    font-family: var(--display);
+    font-size: 1.8rem;
+    color: var(--cream);
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .product .arabic {
+    font-family: var(--arabic);
+    color: var(--gold);
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .product-cuts {
+    list-style: none;
+    margin: 20px 0;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .product-cuts li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-size: 0.9rem;
+    color: var(--cream-soft);
+    border-bottom: 1px dotted var(--border);
+  }
+  .product-cuts li:last-child { border-bottom: none; }
+  .product-cuts .price {
+    color: var(--gold);
+    font-weight: 600;
+    font-family: var(--display);
+    font-size: 1.1rem;
+  }
+  .ready-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--red), var(--gold));
+    color: var(--cream);
+    font-size: 0.65rem;
+    letter-spacing: 1.5px;
+    padding: 3px 8px;
+    border-radius: 50px;
+    margin-left: 6px;
+    font-weight: 600;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+  .product-cuts li small {
+    display: block;
+    color: var(--muted);
+    font-size: 0.75rem;
+    margin-top: 2px;
+    font-style: italic;
+  }
+
+  .product-order {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    padding: 14px;
+    background: transparent;
+    color: var(--gold);
+    text-decoration: none;
+    border: 1px solid var(--gold);
+    font-size: 0.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+  }
+  .product-order:hover { background: var(--gold); color: var(--bg); }
+
+  /* ==================== ORDER ==================== */
+  .order {
+    background:
+      linear-gradient(135deg, var(--red-deep) 0%, var(--bg) 100%);
+    text-align: center;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .order-content { max-width: 700px; margin: 0 auto; }
+  .order .section-title { color: var(--cream); }
+  .order p { color: var(--cream-soft); margin-bottom: 40px; font-size: 1.1rem; }
+
+  .whatsapp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: #25d366;
+    color: white;
+    padding: 20px 44px;
+    border-radius: 2px;
+    text-decoration: none;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3);
+  }
+  .whatsapp-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(37, 211, 102, 0.5);
+  }
+  .whatsapp-btn svg { width: 24px; height: 24px; }
+
+  /* ==================== BOOKING FORM ==================== */
+  .booking-form {
+    max-width: 600px;
+    margin: 40px auto 0;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 40px;
+    text-align: left;
+    border-radius: 4px;
+  }
+  .booking-form h3 {
+    font-family: var(--display);
+    font-size: 1.6rem;
+    color: var(--gold);
+    margin-bottom: 8px;
+    text-align: center;
+    font-weight: 600;
+  }
+  .booking-form .form-subtitle {
+    color: var(--muted);
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .form-group {
+    margin-bottom: 20px;
+  }
+  .form-group label {
+    display: block;
+    color: var(--cream-soft);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .form-group label .required {
+    color: var(--bad, #ef476f);
+    margin-left: 4px;
+  }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 1rem;
+    font-family: var(--body);
+    border-radius: 2px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    background: var(--bg);
+  }
+  .form-group textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  .form-group select {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23c9a449' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+  }
+  .form-group select option { background: var(--bg-card); color: var(--text); }
+
+  .submit-btn {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(90deg, var(--gold), var(--gold-bright));
+    color: var(--bg);
+    border: none;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    margin-top: 10px;
+    transition: all 0.3s ease;
+    font-family: var(--body);
+  }
+  .submit-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(201, 164, 73, 0.4);
+  }
+  .submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .form-message {
+    display: none;
+    margin-top: 20px;
+    padding: 16px;
+    border-radius: 2px;
+    text-align: center;
+    font-size: 0.95rem;
+  }
+  .form-message.success {
+    background: rgba(6, 214, 160, 0.15);
+    border: 1px solid #06d6a0;
+    color: #06d6a0;
+    display: block;
+  }
+  .form-message.error {
+    background: rgba(239, 71, 111, 0.15);
+    border: 1px solid #ef476f;
+    color: #ef476f;
+    display: block;
+  }
+
+  .or-divider {
+    display: flex;
+    align-items: center;
+    margin: 30px 0;
+    color: var(--muted);
+    font-size: 0.85rem;
+    letter-spacing: 3px;
+  }
+  .or-divider::before,
+  .or-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+  .or-divider::before { margin-right: 16px; }
+  .or-divider::after { margin-left: 16px; }
+
+  /* ==================== VISIT ==================== */
+  .visit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    margin-top: 50px;
+  }
+  .visit-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 40px;
+  }
+  .visit-card h3 {
+    font-family: var(--display);
+    font-size: 1.6rem;
+    color: var(--gold);
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  .visit-card .info-row {
+    display: flex;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: flex-start;
+  }
+  .visit-card .info-row:last-child { border-bottom: none; }
+  .info-row svg { width: 20px; height: 20px; stroke: var(--gold); flex-shrink: 0; margin-top: 4px; }
+  .info-row strong { display: block; color: var(--cream); margin-bottom: 4px; font-weight: 500; }
+  .info-row span { color: var(--muted); font-size: 0.9rem; }
+
+  @media (max-width: 768px) {
+    .visit-grid { grid-template-columns: 1fr; }
+    section { padding: 70px 20px; }
+  }
+
+  /* ==================== FOOTER ==================== */
+  footer {
+    background: #050302;
+    padding: 60px 40px 30px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: var(--display);
+    font-size: 2.5rem;
+    letter-spacing: 12px;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .footer-tag {
+    font-family: var(--arabic);
+    font-size: 1.4rem;
+    color: var(--cream);
+    margin-bottom: 30px;
+  }
+  .footer-links {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    list-style: none;
+  }
+  .footer-links a {
+    color: var(--cream-soft);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-bottom {
+    color: var(--muted);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+  }
+
+  /* ==================== SCROLL REVEAL ==================== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- ==================== NAV ==================== -->
+<nav>
+  <div class="logo">LAHM <span>لحم</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#visit">Visit</a></li>
+  </ul>
+  <a href="#order" class="nav-cta">Order Now</a>
+</nav>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <div class="hero-content">
+    <div>
+      <span class="hero-tag">Lahore · Eid-ul-Adha Service</span>
+      <h1>Ijtamai <em>Qurbani</em>,<br>done with care.</h1>
+      <p>Eid-ul-Adha pe ek shareholder banein. Hum aapki taraf se qurbani ka sara intezaam karte hain — shariah ke mutabiq, halal, aur aap ke darwaze tak fresh meat delivery.</p>
+      <div class="hero-buttons">
+        <a href="#order" class="btn btn-primary">Book Qurbani →</a>
+        <a href="#products" class="btn btn-outline">View Services</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <!-- Decorative SVG: butcher's emblem -->
+      <svg viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer ring -->
+        <circle cx="200" cy="250" r="180" stroke="#c9a449" stroke-width="1" opacity="0.3"/>
+        <circle cx="200" cy="250" r="160" stroke="#c9a449" stroke-width="1" opacity="0.5"/>
+        <circle cx="200" cy="250" r="140" stroke="#c9a449" stroke-width="0.5" opacity="0.7" stroke-dasharray="2 4"/>
+
+        <!-- Crossed cleavers -->
+        <g transform="translate(200, 250) rotate(-25)">
+          <rect x="-6" y="-100" width="12" height="120" fill="#3a2820" stroke="#c9a449" stroke-width="1"/>
+          <path d="M -40 20 L 40 20 L 50 70 L -50 70 Z" fill="#c9a449" stroke="#e6c068" stroke-width="1.5"/>
+        </g>
+        <g transform="translate(200, 250) rotate(25)">
+          <rect x="-6" y="-100" width="12" height="120" fill="#3a2820" stroke="#c9a449" stroke-width="1"/>
+          <path d="M -40 20 L 40 20 L 50 70 L -50 70 Z" fill="#c9a449" stroke="#e6c068" stroke-width="1.5" opacity="0.85"/>
+        </g>
+
+        <!-- Center medallion -->
+        <circle cx="200" cy="250" r="50" fill="#0e0907" stroke="#c9a449" stroke-width="2"/>
+        <text x="200" y="245" text-anchor="middle" fill="#c9a449" font-family="Cormorant Garamond" font-size="22" font-weight="600" letter-spacing="3">LAHM</text>
+        <text x="200" y="270" text-anchor="middle" fill="#f4ecd8" font-family="Amiri" font-size="16">لحم</text>
+
+        <!-- Top text -->
+        <path id="topcurve" d="M 60 250 A 140 140 0 0 1 340 250" fill="none"/>
+        <text fill="#9a8f7a" font-family="Inter" font-size="11" letter-spacing="6">
+          <textPath href="#topcurve" startOffset="20%">PREMIUM • HALAL • FRESH</textPath>
+        </text>
+
+        <!-- Bottom text -->
+        <path id="bottomcurve" d="M 60 250 A 140 140 0 0 0 340 250" fill="none"/>
+        <text fill="#9a8f7a" font-family="Inter" font-size="11" letter-spacing="6">
+          <textPath href="#bottomcurve" startOffset="20%">EST 2026 • LAHORE • PAKISTAN</textPath>
+        </text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div>
+      <div class="num">100%</div>
+      <div class="lbl">Halal & Shariah</div>
+    </div>
+    <div>
+      <div class="num">Eid</div>
+      <div class="lbl">Ijtamai Qurbani</div>
+    </div>
+    <div>
+      <div class="num">Free</div>
+      <div class="lbl">Lahore Delivery</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== ABOUT ==================== -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="reveal">
+        <span class="section-tag">Our Service</span>
+        <h2 class="section-title">Qurbani done <em>right</em>,<br>the way it should be.</h2>
+        <p style="color: var(--cream-soft); margin-top: 20px;">Lahm Eid-ul-Adha pe Ijtamai Qurbani ka intezaam karta hai — Lahore mein. Aap shareholder ban jayein, baqi sab kuch hum karte hain: jaanwar ka intekhab, qurbani shariah ke mutabiq, gosht ki taqseem aur aap ke ghar tak delivery.</p>
+
+        <div class="about-features">
+          <div class="feature">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+            </div>
+            <div>
+              <h4>Shariah Compliant</h4>
+              <p>Har qurbani Islamic guidelines ke mutabiq, ulema ki nigrani mein.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M5 19l3-3M16 8l3-3"/></svg>
+            </div>
+            <div>
+              <h4>Healthy Animals</h4>
+              <p>Sehatmand, jawan jaanwar — har qurbani ke liye personally select kiye gaye.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </div>
+            <div>
+              <h4>Doorstep Delivery</h4>
+              <p>Aap ka hissa fresh meat ke roop mein, seedha aap ke ghar Lahore mein.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <h4>Charity Distribution</h4>
+              <p>Aap ke hisse se mustaheqeen tak gosht pohanchaane ka intezaam bhi hum karte hain.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-visual reveal">
+        <div class="seal">
+          <div class="seal-arabic">حلال</div>
+          <div class="seal-text">CERTIFIED</div>
+          <div class="seal-sub">Pure · Fresh · Trusted</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== PRODUCTS ==================== -->
+<section id="products">
+  <div class="container">
+    <span class="section-tag">Qurbani Packages</span>
+    <h2 class="section-title">Choose your <em>hissa</em>.</h2>
+    <p class="section-subtitle">Apni soch aur budget ke mutabiq qurbani ka hissa book karein. Saari prices Pakistani Rupees mein, per share. <strong style="color: var(--gold);">"Ready to Cook"</strong> ka matlab — gosht saaf, kata hua, aur seedha karahi mein daalne ke liye tayyar!</p>
+
+    <div class="products-grid">
+      <div class="product reveal">
+        <div class="product-icon">🐂</div>
+        <h3>Bull Share</h3>
+        <span class="arabic">بیل میں حصہ</span>
+        <p style="color: var(--muted); font-size: 0.9rem;">Sehatmand bull, premium quality, Shariah compliant qurbani — saaf cuts ke saath aap ke ghar delivery.</p>
+        <ul class="product-cuts">
+          <li>
+            Bull Share (1 hissa)
+            <span class="price">Rs 39,999</span>
+            <small>7 mein se ek hissa — perfect for individual qurbani</small>
+          </li>
+          <li>
+            Full Bull <span class="ready-badge">Ready to Cook</span>
+            <span class="price">Rs 2,79,500</span>
+            <small>Saaf, kata hua, marinate ke liye tayyar</small>
+          </li>
+        </ul>
+        <a href="#order" class="product-order">Book Bull Share</a>
+      </div>
+
+      <div class="product reveal">
+        <div class="product-icon">🐐</div>
+        <h3>Goat (Bakra)</h3>
+        <span class="arabic">بکرا</span>
+        <p style="color: var(--muted); font-size: 0.9rem;">Sehatmand bakra — qurbani aur aqeeqa ke liye perfect. Saaf gosht aap ke ghar.</p>
+        <ul class="product-cuts">
+          <li>
+            Standard Goat <span class="ready-badge">Ready to Cook</span>
+            <span class="price">Rs 72,000</span>
+            <small>Saaf cuts, marinate ke liye tayyar</small>
+          </li>
+          <li>
+            Premium Goat <span class="ready-badge">Ready to Cook</span>
+            <span class="price">Rs 88,500</span>
+            <small>Premium quality, ready cuts</small>
+          </li>
+        </ul>
+        <a href="#order" class="product-order">Book Goat</a>
+      </div>
+    </div>
+
+    <p style="text-align: center; color: var(--muted); margin-top: 50px; font-style: italic; font-family: var(--display); font-size: 1.1rem;">
+      Prices market rate ke mutabiq change ho sakti hain. Final pricing ke liye contact karein.
+    </p>
+  </div>
+</section>
+
+<!-- ==================== ORDER ==================== -->
+<section class="order" id="order">
+  <div class="container order-content reveal">
+    <span class="section-tag">Easy Booking</span>
+    <h2 class="section-title">Apna hissa <em>book karein</em>.</h2>
+    <p>Form bharein — hum aap se 24 ghanton mein WhatsApp pe rabta karenge confirmation aur payment details ke liye.</p>
+
+    <!-- BOOKING FORM -->
+    <div class="booking-form">
+      <h3>Booking Form</h3>
+      <p class="form-subtitle">Saari information sahi bharein</p>
+
+      <form id="bookingForm">
+        <div class="form-group">
+          <label>Pura Naam <span class="required">*</span></label>
+          <input type="text" id="customerName" required placeholder="Apna pura naam likhein" />
+        </div>
+
+        <div class="form-group">
+          <label>Mobile / WhatsApp Number <span class="required">*</span></label>
+          <input type="tel" id="customerPhone" required placeholder="03XX-XXXXXXX" />
+        </div>
+
+        <div class="form-group">
+          <label>Hissa Type <span class="required">*</span></label>
+          <select id="hissaType" required>
+            <option value="">-- Select karein --</option>
+            <option value="Bull Share (1 hissa) - Rs 39,999">Bull Share (1 hissa) — Rs 39,999</option>
+            <option value="Full Bull Ready to Cook - Rs 2,79,500">Full Bull Ready to Cook — Rs 2,79,500</option>
+            <option value="Standard Goat Ready to Cook - Rs 72,000">Standard Goat Ready to Cook — Rs 72,000</option>
+            <option value="Premium Goat Ready to Cook - Rs 88,500">Premium Goat Ready to Cook — Rs 88,500</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Quantity (Kitne Hisse) <span class="required">*</span></label>
+          <input type="number" id="quantity" required min="1" max="20" value="1" />
+        </div>
+
+        <div class="form-group">
+          <label>Delivery Address (Lahore) <span class="required">*</span></label>
+          <textarea id="address" required placeholder="House #, Street, Area, Lahore"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Special Instructions (Optional)</label>
+          <textarea id="instructions" placeholder="Koi special request? Mustaheqeen ko hissa? Distribution preference?"></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submitBtn">
+          Book My Qurbani
+        </button>
+
+        <div id="formMessage" class="form-message"></div>
+      </form>
+    </div>
+
+    <div class="or-divider">OR</div>
+
+    <a href="https://wa.me/923004318431?text=Assalamualaikum,%20main%20Lahm%20Ijtamai%20Qurbani%20mein%20hissa%20book%20karna%20chahta%20hoon." class="whatsapp-btn" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp Us Now
+    </a>
+
+    <p style="margin-top: 30px; font-size: 0.9rem;">
+      Ya call karein: <strong style="color: var(--gold);">+92 300 4318431</strong>
+    </p>
+  </div>
+</section>
+
+<!-- ==================== VISIT ==================== -->
+<section id="visit">
+  <div class="container">
+    <span class="section-tag">Find Us</span>
+    <h2 class="section-title">Visit our <em>setup</em>.</h2>
+    <p class="section-subtitle">Eid-ul-Adha ke dinon mein hum apne setup pe maujood hote hain. Aap khud aa kar jaanwar dekh sakte hain aur details le sakte hain.</p>
+
+    <div class="visit-grid">
+      <div class="visit-card reveal">
+        <h3>Our Location</h3>
+        <div class="info-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <div>
+            <strong>Owner</strong>
+            <span>Shafy Rauf</span>
+          </div>
+        </div>
+        <div class="info-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div>
+            <strong>Lahm Ijtamai Qurbani</strong>
+            <span>Sher Shah Colony, Raiwind Road<br>Lahore, Pakistan</span>
+          </div>
+        </div>
+        <div class="info-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          <div>
+            <strong>Phone / WhatsApp</strong>
+            <span>+92 300 4318431</span>
+          </div>
+        </div>
+        <div class="info-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <div>
+            <strong>Email</strong>
+            <span>info@lahm.pk</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="visit-card reveal">
+        <h3>Service Hours</h3>
+        <div class="info-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          <div>
+            <strong>Eid-ul-Adha Service Only</strong>
+            <span>Hum sirf Eid-ul-Adha ke ayyam mein Ijtamai Qurbani ki service dete hain — saal mein ek baar.</span>
+          </div>
+        </div>
+        <div class="info-row">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <div>
+            <strong>Meat Delivery</strong>
+            <span>Eid ke 24-48 ghanton ke andar — fresh meat aap ke ghar Lahore mein</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="footer-logo">LAHM</div>
+  <div class="footer-tag">لحم — Crafted with care</div>
+  <ul class="footer-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#products">Products</a></li>
+    <li><a href="#order">Order</a></li>
+    <li><a href="#visit">Visit</a></li>
+  </ul>
+  <div class="footer-bottom">
+    Owned & operated by <strong style="color: var(--gold);">Shafy Rauf</strong><br>
+    © 2026 Lahm Ijtamai Qurbani, Lahore — All rights reserved.
+  </div>
+</footer>
+
+<!-- Firebase Compat SDK (works from file:// protocol) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script>
+  // ==================== FIREBASE SETUP ====================
+  var firebaseConfig = {
+    apiKey: "AIzaSyA0TlS5hLOTtk1Pz1rl3ziSflATczFXOZo",
+    authDomain: "lahm-qurbani.firebaseapp.com",
+    projectId: "lahm-qurbani",
+    storageBucket: "lahm-qurbani.firebasestorage.app",
+    messagingSenderId: "795880237028",
+    appId: "1:795880237028:web:31e8a5078141def262c9f1"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  var db = firebase.firestore();
+
+  // ==================== BOOKING FORM HANDLER ====================
+  var form = document.getElementById('bookingForm');
+  var submitBtn = document.getElementById('submitBtn');
+  var messageBox = document.getElementById('formMessage');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Booking Save Ho Rahi Hai...';
+    messageBox.className = 'form-message';
+
+    var bookingData = {
+      name: document.getElementById('customerName').value.trim(),
+      phone: document.getElementById('customerPhone').value.trim(),
+      hissaType: document.getElementById('hissaType').value,
+      quantity: parseInt(document.getElementById('quantity').value),
+      address: document.getElementById('address').value.trim(),
+      instructions: document.getElementById('instructions').value.trim() || 'None',
+      status: 'Pending',
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    db.collection('bookings').add(bookingData)
+      .then(function(docRef) {
+        messageBox.className = 'form-message success';
+        messageBox.innerHTML =
+          '✅ <strong>Booking Confirmed!</strong><br>' +
+          'Shukriya ' + bookingData.name + '! Aap ki booking save ho gayi hai.<br>' +
+          '<small>Booking ID: ' + docRef.id.substring(0, 8).toUpperCase() + '</small><br>' +
+          'Hum 24 ghanton mein WhatsApp pe rabta karenge.';
+        form.reset();
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Book My Qurbani';
+        messageBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      })
+      .catch(function(error) {
+        console.error('Booking error:', error);
+        messageBox.className = 'form-message error';
+        messageBox.innerHTML =
+          '❌ <strong>Booking Save Nahi Ho Saki</strong><br>' +
+          'Internet check karein ya WhatsApp pe rabta karein: +92 300 4318431';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Book My Qurbani';
+      });
+  });
+</script>
+
+<script>
+  // Smooth scroll-triggered reveal animations
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+</script>
+</body>
+</html>
